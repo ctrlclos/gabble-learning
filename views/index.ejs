@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="container">
+    <%- include('partials/flash') %>
+
+    <h1>Welcome to Gabble Learning</h1>
+    <p>Your personal vocabulary learning companion.</p>
+
+    <% if (isAuthenticated) { %>
+      <div class="home-actions">
+        <a href="/vocabularies" class="btn btn-primary">My Vocabulary</a>
+      </div>
+    <% } else { %>
+      <div class="home-actions">
+        <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        <a href="/auth/login" class="btn btn-secondary">Login</a>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

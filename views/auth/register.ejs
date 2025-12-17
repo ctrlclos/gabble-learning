@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1>Create Your Account</h1>
+
+    <!-- Display validation errors if any -->
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/auth/register" method="POST" class="auth-form">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= oldInput.name || '' %>"
+          required
+          minlength="2"
+          placeholder="Enter your name"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= oldInput.email || '' %>"
+          required
+          placeholder="you@example.com"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="8"
+          placeholder="At least 8 characters"
+        >
+        <small class="form-hint">
+          Must include uppercase, lowercase, and a number
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+          placeholder="Type your password again"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="nativeLanguage">Your Native Language</label>
+        <input
+          type="text"
+          id="nativeLanguage"
+          name="nativeLanguage"
+          value="<%= oldInput.nativeLanguage || '' %>"
+          required
+          placeholder="e.g., English, Spanish"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="targetLanguage">Language You're Learning</label>
+        <input
+          type="text"
+          id="targetLanguage"
+          name="targetLanguage"
+          value="<%= oldInput.targetLanguage || '' %>"
+          required
+          placeholder="e.g., Japanese, French"
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+
+    <p class="auth-link">
+      Already have an account? <a href="/auth/login">Login here</a>
+    </p>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

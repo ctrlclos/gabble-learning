@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <h1>My Vocabulary</h1>
+      <a href="/vocabularies/new" class="btn btn-primary">Add New Word</a>
+    </div>
+
+    <% if (vocabularies.length === 0) { %>
+      <p>No vocabulary words yet. Add your first word above!</p>
+    <% } else { %>
+      <ul class="vocab-list">
+        <% vocabularies.forEach(word => { %>
+          <li class="vocab-item">
+            <div class="vocab-info">
+              <strong><%= word.word %></strong>
+              <span class="badge badge-<%= word.difficultyLevel %>"><%= word.difficultyLevel %></span>
+              <p><%= word.definition %></p>
+              <% if (word.translation) { %>
+                <p class="translation"><em>Translation: <%= word.translation %></em></p>
+              <% } %>
+            </div>
+            <div class="vocab-actions">
+              <a href="/vocabularies/<%= word._id %>" class="btn btn-secondary">View</a>
+              <a href="/vocabularies/<%= word._id %>/edit" class="btn btn-secondary">Edit</a>
+              <form action="/vocabularies/<%= word._id %>?_method=DELETE" method="POST" class="inline-form">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="vocab-detail">
+      <h1><%= vocabulary.word %></h1>
+      <span class="badge badge-<%= vocabulary.difficultyLevel %>"><%= vocabulary.difficultyLevel %></span>
+
+      <div class="vocab-detail-section">
+        <h3>Definition</h3>
+        <p><%= vocabulary.definition %></p>
+      </div>
+
+      <% if (vocabulary.translation) { %>
+        <div class="vocab-detail-section">
+          <h3>Translation</h3>
+          <p><%= vocabulary.translation %></p>
+        </div>
+      <% } %>
+
+      <% if (vocabulary.tags && vocabulary.tags.length > 0) { %>
+        <div class="vocab-detail-section">
+          <h3>Tags</h3>
+          <div class="tags">
+            <% vocabulary.tags.forEach(tag => { %>
+              <span class="tag"><%= tag %></span>
+            <% }); %>
+          </div>
+        </div>
+      <% } %>
+
+      <div class="vocab-detail-section">
+        <h3>Details</h3>
+        <p><small>Created by: <%= vocabulary.createdBy.name %></small></p>
+        <p><small>Added: <%= vocabulary.createdAt.toLocaleDateString() %></small></p>
+        <% if (vocabulary.updatedAt && vocabulary.updatedAt.toString() !== vocabulary.createdAt.toString()) { %>
+          <p><small>Last updated: <%= vocabulary.updatedAt.toLocaleDateString() %></small></p>
+        <% } %>
+      </div>
+
+      <div class="form-actions">
+        <a href="/vocabularies/<%= vocabulary._id %>/edit" class="btn btn-secondary">Edit</a>
+        <form action="/vocabularies/<%= vocabulary._id %>?_method=DELETE" method="POST" class="inline-form">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <a href="/vocabularies" class="btn btn-secondary">Back to List</a>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!--(Navigation links)-->
+<nav class="navbar">
+  <a href="/" class="nav-brand">
+    Gabble Learning
+  </a>
+
+  <ul class="nav-links">
+    <% if(isAuthenticated) { %>
+      <li>
+      <a href="/vocabularies">
+        My Vocabulary
+      </a>
+    </li>
+    <li>
+      <span class="nav-user">
+        Hello, <%= currentUser.name %>
+        <% if(currentUser.role === 'admin') { %>
+          <span class="badge badge-admin">
+            Admin
+          </span>
+        <% } %>
+      </span>
+    </li>
+    <li>
+        <form action="/auth/logout" method="POST" class="nav-form">
+          <button type="submit" class="btn-link">Logout</button>
+        </form>
+      </li>
+    <% } else {%>
+      <li>
+        <a href="/auth/login">Login</a>
+      </li>
+
+      <li>
+        <a href="/auth/register">Register</a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
