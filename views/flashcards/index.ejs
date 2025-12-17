@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <h1><%= title %></h1>
+      <a href="/flashcards/new" class="btn btn-primary">Create New Card</a>
+    </div>
+
+    <!-- checks if there are flashcards -->
+    <% if (flashcards.length === 0) { %>
+      <p>No flashcards yet. Create your first one!</p>
+    <% } else { %>
+      <!-- loops through and displays each flashcard -->
+      <ul class="vocab-list">
+        <% flashcards.forEach(card => { %>
+          <li class="vocab-item">
+            <div class="vocab-info">
+              <strong><%= card.front %></strong>
+              <p><%= card.back %></p>
+              <small>Level: <%= card.level %></small>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

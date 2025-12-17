@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+
+    <!-- Show errors if the form was submitted with invalid data -->
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/flashcards" method="POST" class="vocab-form">
+
+      <!-- FRONT OF CARD (Question) -->
+      <div class="form-group">
+        <label for="front">Question (Front of Card)</label>
+          <%= oldInput.front || '' %>" <!-- Preserves what user typed if there was an error!-->
+        <textarea
+          id="front"
+          name="front"
+          placeholder="What do you want to remember?"
+          required
+        ><%= oldInput.front || '' %></textarea>
+      </div>
+
+      <!-- BACK OF CARD (Answer) -->
+      <div class="form-group">
+        <label for="back">Answer (Back of Card)</label>
+        <textarea
+          id="back"
+          name="back"
+          placeholder="The answer"
+          required
+        ><%= oldInput.back || '' %></textarea>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Create Flashcard</button>
+        <a href="/flashcards" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

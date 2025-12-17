@@ -12,7 +12,9 @@ import { fileURLToPath } from 'url';
 import indexRoutes from './routes/index.js';
 import vocabularyRoutes from './routes/vocabularyRoutes.js';
 import learnerRoutes from './routes/learnerRoutes.js';
+import flashcardRoutes from './routes/flashcardRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+
 
 // import middleware
 import { loadUser } from './middleware/auth.js';
@@ -88,6 +90,7 @@ app.use((req, res, next) => {
 app.use('/auth', authRoutes);
 app.use('/vocabularies', vocabularyRoutes); // handles requests to '/vocabularies'
 app.use('/learners', learnerRoutes); // handles requests to '/learners'
+app.use('/flashcards', flashcardRoutes); // handles requests to '/flashcards'
 app.use('/', indexRoutes) // handles requests to '/'
 // error handling
 // 404 - page not found

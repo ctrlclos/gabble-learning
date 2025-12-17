@@ -23,7 +23,7 @@ const flashcardSchema = new mongoose.Schema(
       default: Date.now // new cards - due immediately
     },
     createdBy: { // who owns this card?
-      type: mongoose.Schema.types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Learner',
       required: true,
     },
