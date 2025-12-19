@@ -95,6 +95,10 @@ gabble-learning/
 4. **Rate your recall** — Choose Again, Hard, Good, or Easy
 5. **Learn efficiently** — SM-2 adjusts intervals based on your performance
 
+## The SM-2 Algorithm
+
+This app uses the [SM-2 (SuperMemo 2)](https://super-memory.com/english/ol/sm2.htm) spaced repetition algorithm, created by Piotr Wozniak in 1987. SM-2 calculates optimal review intervals based on how well you recall each card, adjusting the schedule to maximize long-term retention with minimal reviews.
+
 ## Data Schema
 
 ```

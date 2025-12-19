@@ -1,6 +1,35 @@
-// SM-2 Spaced Repetition Algorithm
-// Schedules reviews at optimal intervals to maximize retention.
-// Quality ratings: 0 (Again), 3 (Hard), 4 (Good), 5 (Easy)
+/**
+ * SM-2 (SuperMemo 2) Spaced Repetition Algorithm
+ *
+ * Created by Piotr Wozniak in 1987 and published in "Optimization of learning" (1990).
+ * Reference: https://super-memory.com/english/ol/sm2.htm
+ *
+ * The algorithm schedules reviews at optimal intervals to maximize long-term retention
+ * by adjusting the gap between reviews based on how well the learner recalls the material.
+ *
+ * CORE FORMULAS:
+ *
+ * 1. Ease Factor (EF) adjustment after each review:
+ *    EF' = EF + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
+ *    Where:
+ *      - q = quality of response (0-5)
+ *      - EF minimum is limited to 1.3 to prevent "impossible" cards
+ *
+ * 2. Inter-repetition intervals:
+ *    I(1) = 1 day                    (first successful review)
+ *    I(2) = 6 days                   (second successful review)
+ *    I(n) = I(n-1) * EF, for n > 2   (subsequent reviews)
+ *
+ * 3. Repetition count:
+ *    - If q < 3 (failed): reset repetitions to 0, interval to 1 day
+ *    - If q >= 3 (passed): increment repetitions by 1
+ *
+ * Quality ratings used in this implementation:
+ *   0 = Again (complete blackout)
+ *   3 = Hard  (correct with serious difficulty)
+ *   4 = Good  (correct with some hesitation)
+ *   5 = Easy  (perfect recall)
+ */
 
 // --- Main function ---
 
