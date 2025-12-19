@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <div>
+        <h1><%= title %></h1>
+      </div>
+      <div>
+        <a href="/cards/<%= card._id %>/edit" class="btn btn-secondary">Edit Card</a>
+      </div>
+    </div>
+
+    <div class="card-detail-meta">
+      <% if (card.deck) { %>
+        <span>Deck: <a href="/decks/<%= card.deck._id %>"><strong><%= card.deck.name %></strong></a></span>
+      <% } %>
+      <% if (card.tags && card.tags.length > 0) { %>
+        <span>Tags:
+          <% card.tags.forEach((tag, i) => { %>
+            <span class="tag"><%= tag %></span><%= i < card.tags.length - 1 ? ' ' : '' %>
+          <% }) %>
+        </span>
+      <% } %>
+    </div>
+
+    <section class="card-detail-section">
+      <div class="card-content-display">
+        <div class="card-side-display">
+          <h3>Front</h3>
+          <div class="card-text"><%= card.front %></div>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+        <div class="card-side-display">
+          <h3>Back</h3>
+          <div class="card-text"><%= card.back %></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-detail-section">
+      <h2>Learning Progress</h2>
+      <div class="learning-stats">
+        <div class="stat">
+          <span class="stat-label">Next Review</span>
+          <span class="stat-value"><%= card.nextReviewDate.toLocaleDateString() %></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Interval</span>
+          <span class="stat-value"><%= card.interval %> day(s)</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Ease Factor</span>
+          <span class="stat-value"><%= card.easeFactor.toFixed(2) %></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Repetitions</span>
+          <span class="stat-value"><%= card.repetitions %></span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="mt-6 mb-5">
+
+    <div class="danger-zone">
+      <h3>Danger Zone</h3>
+      <p>This action cannot be undone.</p>
+      <form action="/cards/<%= card._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this card?');">
+        <button type="submit" class="btn btn-danger">Delete Card</button>
+      </form>
+    </div>
+
+    <p class="mt-5">
+      <a href="/cards">&larr; Back to all cards</a>
+    </p>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

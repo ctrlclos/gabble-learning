@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <h1><%= title %></h1>
+      <a href="/decks/new" class="btn btn-primary">Create New Deck</a>
+    </div>
+
+    <% if (decks.length === 0) { %>
+      <div class="empty-state">
+        <h2>No decks yet</h2>
+        <p>Create your first deck to organize your cards.</p>
+        <a href="/decks/new" class="btn btn-primary">Create Your First Deck</a>
+      </div>
+    <% } else { %>
+      <div class="deck-grid">
+        <% decks.forEach(deck => { %>
+          <article class="deck-card">
+            <div class="deck-header">
+              <h2><a href="/decks/<%= deck._id %>"><%= deck.name %></a></h2>
+              <% if (deck.isDefault) { %>
+                <span class="badge badge-default">Default</span>
+              <% } %>
+            </div>
+
+            <% if (deck.description) { %>
+              <p class="deck-description"><%= deck.description %></p>
+            <% } %>
+
+            <div class="deck-stats">
+              <span class="stat">
+                <strong><%= deck.cardCount || 0 %></strong> cards
+              </span>
+              <span class="stat">
+                <strong><%= deck.dueCount || 0 %></strong> due
+              </span>
+            </div>
+
+            <div class="deck-actions">
+              <% if (deck.dueCount > 0) { %>
+                <a href="/decks/<%= deck._id %>/review" class="btn btn-success btn-sm">
+                  Study Now
+                </a>
+              <% } %>
+              <a href="/decks/<%= deck._id %>" class="btn btn-secondary btn-sm">
+                View
+              </a>
+              <% if (!deck.isDefault) { %>
+                <a href="/decks/<%= deck._id %>/edit" class="btn btn-secondary btn-sm">
+                  Edit
+                </a>
+              <% } %>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

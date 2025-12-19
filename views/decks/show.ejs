@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <div class="deck-title-section">
+        <h1><%= deck.name %></h1>
+        <% if (deck.isDefault) { %>
+          <span class="badge badge-default">Default</span>
+        <% } %>
+      </div>
+      <div class="deck-header-actions">
+        <% if (dueCount > 0) { %>
+          <a href="/decks/<%= deck._id %>/review" class="btn btn-primary">Review (<%= dueCount %> due)</a>
+        <% } %>
+        <a href="/cards/new?deck=<%= deck._id %>" class="btn btn-primary">Add Card</a>
+        <% if (!deck.isDefault) { %>
+          <a href="/decks/<%= deck._id %>/edit" class="btn btn-secondary">Edit Deck</a>
+        <% } %>
+      </div>
+    </div>
+
+    <% if (deck.description) { %>
+      <p class="deck-description-detail"><%= deck.description %></p>
+    <% } %>
+
+    <div class="deck-meta">
+      <span><strong><%= cards.length %></strong> card(s) total</span>
+      <span><strong><%= dueCount %></strong> card(s) due for review</span>
+    </div>
+
+    <% if (cards.length === 0) { %>
+      <div class="empty-state">
+        <h2>No cards in this deck</h2>
+        <p>Add your first card to start learning.</p>
+        <a href="/cards/new?deck=<%= deck._id %>" class="btn btn-primary">Add First Card</a>
+      </div>
+    <% } else { %>
+      <h2>Cards</h2>
+      <div class="cards-list">
+        <% cards.forEach(card => { %>
+          <article class="card-item">
+            <div class="card-item-header">
+              <h3>
+                <a href="/cards/<%= card._id %>">
+                  <%= card.front.length > 50 ? card.front.substring(0, 50) + '...' : card.front %>
+                </a>
+              </h3>
+            </div>
+
+            <div class="card-item-preview">
+              <div class="card-side">
+                <span class="side-label">Front:</span>
+                <span><%= card.front.length > 60 ? card.front.substring(0, 60) + '...' : card.front %></span>
+              </div>
+              <div class="card-side">
+                <span class="side-label">Back:</span>
+                <span><%= card.back.length > 60 ? card.back.substring(0, 60) + '...' : card.back %></span>
+              </div>
+            </div>
+
+            <div class="card-item-meta">
+              <% if (card.tags && card.tags.length > 0) { %>
+                <span>Tags: <%= card.tags.join(', ') %></span>
+              <% } %>
+              <span>Next review: <%= card.nextReviewDate.toLocaleDateString() %></span>
+            </div>
+
+            <div class="card-item-actions">
+              <a href="/cards/<%= card._id %>" class="btn btn-secondary btn-sm">View</a>
+              <a href="/cards/<%= card._id %>/edit" class="btn btn-secondary btn-sm">Edit</a>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <p class="mt-5">
+      <a href="/decks">&larr; Back to all decks</a>
+    </p>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

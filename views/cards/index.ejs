@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="page-header">
+      <h1><%= title %></h1>
+      <div>
+        <% if(dueCount > 0) { %>
+          <a href="/cards/review" class="btn btn-primary">Review (<%= dueCount %> due)</a>
+        <% } %>
+        <a href="/cards/new" class="btn btn-primary">Add Card</a>
+      </div>
+    </div>
+
+    <% if (cards.length === 0) { %>
+      <div class="empty-state">
+        <h2>No cards yet</h2>
+        <p>Create your first card to start learning.</p>
+        <a href="/cards/new" class="btn btn-primary">Create Your First Card</a>
+      </div>
+    <% } else { %>
+      <div class="cards-list">
+        <% cards.forEach(card => { %>
+          <article class="card-item">
+            <div class="card-item-header">
+              <h2>
+                <a href="/cards/<%= card._id %>">
+                  <%= card.front.length > 60 ? card.front.substring(0, 60) + '...' : card.front %>
+                </a>
+              </h2>
+            </div>
+
+            <div class="card-item-preview">
+              <div class="card-side">
+                <span class="side-label">Word:</span>
+                <span><%= card.front.length > 80 ? card.front.substring(0, 80) + '...' : card.front %></span>
+              </div>
+              <div class="card-side">
+                <span class="side-label">Translation:</span>
+                <span><%= card.back.split('\n')[0].substring(0, 60) %><%= card.back.length > 60 ? '...' : '' %></span>
+              </div>
+            </div>
+
+            <div class="card-item-meta">
+              <% if (card.deck) { %>
+                <span>Deck: <strong><%= card.deck.name %></strong></span>
+              <% } %>
+              <% if (card.tags && card.tags.length > 0) { %>
+                <span>Tags: <%= card.tags.join(', ') %></span>
+              <% } %>
+              <span>Next review: <%= card.nextReviewDate.toLocaleDateString() %></span>
+            </div>
+
+            <div class="card-item-actions">
+              <a href="/cards/<%= card._id %>" class="btn btn-secondary btn-sm">View</a>
+              <a href="/cards/<%= card._id %>/edit" class="btn btn-secondary btn-sm">Edit</a>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

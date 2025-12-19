@@ -1,23 +1,41 @@
 <% if (typeof success !== 'undefined' && success.length > 0) { %>
-<div class="alert alert-success">
-  <% success.forEach(msg =>  {%>
-    <p><%= msg  %></p>
-  <%})%>
+<div class="alert alert-success" role="alert">
+  <div class="alert__content">
+    <strong class="alert__title">Success</strong>
+    <% success.forEach(msg => { %>
+      <p><%= msg %></p>
+    <% }) %>
+  </div>
+  <button type="button" class="alert__dismiss" aria-label="Dismiss" onclick="this.parentElement.remove()">
+    &times;
+  </button>
 </div>
 <% } %>
 
 <% if (typeof error !== 'undefined' && error.length > 0) { %>
-  <div class="alert alert-error">
+<div class="alert alert-error" role="alert">
+  <div class="alert__content">
+    <strong class="alert__title">Error</strong>
     <% error.forEach(msg => { %>
       <p><%= msg %></p>
     <% }) %>
   </div>
+  <button type="button" class="alert__dismiss" aria-label="Dismiss" onclick="this.parentElement.remove()">
+    &times;
+  </button>
+</div>
 <% } %>
 
 <% if (typeof info !== 'undefined' && info.length > 0) { %>
-  <div class="alert alert-info">
+<div class="alert alert-info" role="status">
+  <div class="alert__content">
+    <strong class="alert__title">Info</strong>
     <% info.forEach(msg => { %>
       <p><%= msg %></p>
     <% }) %>
   </div>
+  <button type="button" class="alert__dismiss" aria-label="Dismiss" onclick="this.parentElement.remove()">
+    &times;
+  </button>
+</div>
 <% } %>

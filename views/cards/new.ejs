@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+  <style>
+    .word-input-section {
+      margin-bottom: var(--space-6);
+    }
+    .word-input-section input {
+      font-size: 1.25rem;
+      padding: var(--space-4);
+    }
+    .action-choice {
+      display: flex;
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+    .action-choice .btn {
+      flex: 1;
+      padding: var(--space-4);
+      font-size: 1rem;
+    }
+    .btn-ai {
+      background: black;
+      color: white;
+      border: none;
+    }
+    .btn-ai:hover {
+      background: black;
+    }
+    .manual-section {
+      display: none;
+      margin-top: var(--space-6);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .manual-section.visible {
+      display: block;
+    }
+    .generated-preview {
+      display: none;
+      margin-top: var(--space-6);
+      padding: var(--space-4);
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+    .generated-preview.visible {
+      display: block;
+    }
+    .generated-preview h3 {
+      margin-bottom: var(--space-3);
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+    }
+    .preview-translation {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+    .preview-definition {
+      color: var(--color-text-muted);
+    }
+    .preview-examples {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+    }
+    .preview-examples h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-2);
+    }
+    .preview-examples ul {
+      margin: 0;
+      padding-left: var(--space-4);
+    }
+    .preview-examples li {
+      margin-bottom: var(--space-2);
+      font-style: italic;
+    }
+    .language-hint {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+    <p class="language-hint">Learning <strong><%= currentUser.targetLanguage %></strong> (Native: <%= currentUser.nativeLanguage %>)</p>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/cards" method="POST" class="card-form" id="card-form">
+
+      <div class="word-input-section">
+        <div class="form-group">
+          <label for="front">Word to learn</label>
+          <input
+            type="text"
+            id="front"
+            name="front"
+            placeholder="Enter a word in <%= currentUser.targetLanguage %>"
+            required
+            autocomplete="off"
+            value="<%= oldInput.front || '' %>"
+          >
+        </div>
+
+        <div class="action-choice">
+          <button type="button" class="btn btn-ai" id="generate-btn">
+            Generate with AI
+          </button>
+          <button type="button" class="btn btn-secondary" id="manual-btn">
+            Create Manually
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Generated Preview -->
+      <div class="generated-preview" id="generated-preview">
+        <h3 id="preview-title">Generated Cards</h3>
+        <div class="preview-translation" id="preview-translation"></div>
+        <div class="preview-definition" id="preview-definition"></div>
+
+        <div class="preview-examples" id="preview-examples">
+          <h4>Sentence Cards (fill-in-the-blank)</h4>
+          <ul id="example-list"></ul>
+        </div>
+
+        <input type="hidden" name="back" id="back" value="<%= oldInput.back || '' %>">
+        <div id="sentence-inputs"></div>
+
+        <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3);">
+          <button type="submit" class="btn btn-primary">Save Cards</button>
+          <button type="button" class="btn btn-secondary" id="edit-generated-btn">Edit</button>
+          <button type="button" class="btn btn-secondary" id="regenerate-btn">Regenerate</button>
+        </div>
+      </div>
+
+      <!-- Manual Entry Section -->
+      <div class="manual-section" id="manual-section">
+        <div class="form-group">
+          <label for="back-manual">Translation & Definition</label>
+          <small class="text-muted">Translation in <%= currentUser.nativeLanguage %>, then definition</small>
+          <textarea
+            id="back-manual"
+            name="back-manual"
+            placeholder="e.g., casa (noun)&#10;A building for human habitation"
+            rows="4"
+          ><%= oldInput.back || '' %></textarea>
+        </div>
+
+        <% if (decks && decks.length > 0) { %>
+          <div class="form-group">
+            <label for="deck">Deck (Optional)</label>
+            <select id="deck" name="deck" class="form-select">
+              <option value="">No deck</option>
+              <% decks.forEach(d => { %>
+                <option value="<%= d._id %>" <%= oldInput.deck == d._id.toString() ? 'selected' : '' %>>
+                  <%= d.name %><%= d.isDefault ? ' (Default)' : '' %>
+                </option>
+              <% }); %>
+            </select>
+          </div>
+        <% } %>
+
+        <div class="form-group">
+          <label for="tags">Tags (Optional)</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value="<%= oldInput.tags || '' %>"
+            placeholder="e.g., verbs, chapter-1"
+          >
+          <small class="text-muted">Separate tags with commas</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="manual-submit">Create Card</button>
+          <a href="/cards" class="btn btn-secondary">Cancel</a>
+        </div>
+      </div>
+
+      <!-- Deck selector for AI flow (hidden, shown after generation) -->
+      <div id="ai-extras" style="display: none;">
+        <% if (decks && decks.length > 0) { %>
+          <div class="form-group" style="margin-top: var(--space-4);">
+            <label for="deck-ai">Deck (Optional)</label>
+            <select id="deck-ai" name="deck-ai" class="form-select">
+              <option value="">No deck</option>
+              <% decks.forEach(d => { %>
+                <option value="<%= d._id %>" <%= oldInput.deck == d._id.toString() ? 'selected' : '' %>>
+                  <%= d.name %><%= d.isDefault ? ' (Default)' : '' %>
+                </option>
+              <% }); %>
+            </select>
+          </div>
+        <% } %>
+      </div>
+
+    </form>
+
+    <p style="margin-top: var(--space-6);">
+      <a href="/cards">&larr; Back to cards</a>
+    </p>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script>
+    const generateBtn = document.getElementById('generate-btn');
+    const manualBtn = document.getElementById('manual-btn');
+    const manualSection = document.getElementById('manual-section');
+    const generatedPreview = document.getElementById('generated-preview');
+    const frontInput = document.getElementById('front');
+    const backInput = document.getElementById('back');
+    const backManual = document.getElementById('back-manual');
+    const form = document.getElementById('card-form');
+    const aiExtras = document.getElementById('ai-extras');
+
+    const targetLanguage = '<%= currentUser.targetLanguage %>';
+    const nativeLanguage = '<%= currentUser.nativeLanguage %>';
+    const userInterests = '<%= currentUser.interests || "" %>';
+
+    // Generate with AI
+    generateBtn.addEventListener('click', async function() {
+      const word = frontInput.value.trim();
+      if (!word) {
+        alert('Please enter a word first');
+        frontInput.focus();
+        return;
+      }
+
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generating...';
+
+      try {
+        const response = await fetch('/api/ai/word-info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            word: word,
+            targetLanguage: targetLanguage,
+            nativeLanguage: nativeLanguage,
+            interests: userInterests
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.wordInfo) {
+          const info = data.wordInfo;
+
+          // Format: Translation (part of speech)\nDefinition
+          let translation = info.translation || word;
+          let definition = info.definition || '';
+
+          if (info.partOfSpeech) {
+            translation += ` (${info.partOfSpeech})`;
+          }
+
+          document.getElementById('preview-translation').textContent = translation;
+          document.getElementById('preview-definition').textContent = definition;
+
+          // Display example sentences and create hidden inputs
+          const exampleList = document.getElementById('example-list');
+          const examplesSection = document.getElementById('preview-examples');
+          const sentenceInputs = document.getElementById('sentence-inputs');
+          exampleList.innerHTML = '';
+          sentenceInputs.innerHTML = '';
+
+          const sentenceCount = info.exampleSentences?.length || 0;
+          const totalCards = 1 + sentenceCount;
+
+          // Update title to show card count
+          document.getElementById('preview-title').textContent =
+            `${totalCards} Card${totalCards > 1 ? 's' : ''} Will Be Created`;
+
+          if (sentenceCount > 0) {
+            info.exampleSentences.forEach(sentence => {
+              // Display in preview
+              const li = document.createElement('li');
+              li.textContent = sentence;
+              exampleList.appendChild(li);
+
+              // Create hidden input for form submission
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'exampleSentences';
+              input.value = sentence;
+              sentenceInputs.appendChild(input);
+            });
+            examplesSection.style.display = 'block';
+          } else {
+            examplesSection.style.display = 'none';
+          }
+
+          // Store back content (translation + definition only, sentences are separate cards)
+          backInput.value = translation + '\n\n' + definition;
+
+          // Show preview, hide manual
+          generatedPreview.classList.add('visible');
+          manualSection.classList.remove('visible');
+          aiExtras.style.display = 'block';
+
+        } else {
+          alert(data.error || 'Failed to generate. Try manual entry.');
+          showManualSection();
+        }
+      } catch (error) {
+        console.error('AI generation error:', error);
+        alert('Failed to connect to AI. Try manual entry.');
+        showManualSection();
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.innerHTML = 'Generate with AI';
+      }
+    });
+
+    // Manual entry
+    manualBtn.addEventListener('click', showManualSection);
+
+    function showManualSection() {
+      manualSection.classList.add('visible');
+      generatedPreview.classList.remove('visible');
+      aiExtras.style.display = 'none';
+      backManual.focus();
+    }
+
+    // Edit generated content
+    document.getElementById('edit-generated-btn').addEventListener('click', function() {
+      backManual.value = backInput.value;
+      showManualSection();
+    });
+
+    // Regenerate
+    document.getElementById('regenerate-btn').addEventListener('click', function() {
+      generateBtn.click();
+    });
+
+    // Form submission handling
+    form.addEventListener('submit', function(e) {
+      // If manual section is visible, use manual back value
+      if (manualSection.classList.contains('visible')) {
+        backInput.value = backManual.value;
+        // Use manual deck selector
+        const deckSelect = document.getElementById('deck');
+        if (deckSelect) {
+          document.getElementById('deck-ai')?.remove();
+        }
+      } else {
+        // Use AI deck selector
+        const deckAi = document.getElementById('deck-ai');
+        const deckManual = document.getElementById('deck');
+        if (deckAi && deckManual) {
+          deckManual.value = deckAi.value;
+        }
+      }
+
+      // Validate
+      if (!frontInput.value.trim()) {
+        e.preventDefault();
+        alert('Please enter a word');
+        return;
+      }
+      if (!backInput.value.trim()) {
+        e.preventDefault();
+        alert('Please generate or enter the translation/definition');
+        return;
+      }
+    });
+  </script>
+</body>
+</html>

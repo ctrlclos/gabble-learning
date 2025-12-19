@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/decks/<%= deck._id %>?_method=PUT" method="POST" class="vocab-form">
+      <div class="form-group">
+        <label for="name">Deck Name *</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= oldInput.name || deck.name %>"
+          required
+          maxlength="100"
+          placeholder="e.g., Spanish Vocabulary"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          maxlength="500"
+          rows="3"
+          placeholder="What will this deck contain?"
+        ><%= oldInput.description !== undefined ? oldInput.description : deck.description %></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Update Deck</button>
+        <a href="/decks/<%= deck._id %>" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+
+    <hr class="mt-6 mb-5">
+
+    <div class="danger-zone">
+      <h3>Danger Zone</h3>
+      <p>Deleting this deck will unassign all cards from it.</p>
+      <form action="/decks/<%= deck._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this deck? All cards will become unassigned.');">
+        <button type="submit" class="btn btn-danger">Delete Deck</button>
+      </form>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

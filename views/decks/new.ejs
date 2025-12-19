@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/decks" method="POST" class="vocab-form">
+      <div class="form-group">
+        <label for="name">Deck Name *</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= oldInput.name || '' %>"
+          required
+          maxlength="100"
+          placeholder="e.g., Spanish Vocabulary"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          maxlength="500"
+          rows="3"
+          placeholder="What will this deck contain?"
+        ><%= oldInput.description || '' %></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Create Deck</button>
+        <a href="/decks" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

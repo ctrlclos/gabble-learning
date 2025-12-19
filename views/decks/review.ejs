@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <div class="review-container">
+      <h1><%= title %></h1>
+
+      <% if (card) { %>
+        <p class="progress-info">
+          Card 1 of <%= totalDue %> due for review in "<%= deck.name %>"
+        </p>
+
+        <% const isSentenceCard = card.front.includes('_____'); %>
+        <div class="flashcard" id="flashcard" data-card-id="<%= card._id %>" data-deck-id="<%= deck._id %>" data-is-sentence="<%= isSentenceCard %>">
+          <div class="card-front">
+            <p><%= isSentenceCard ? card.front : card.back %></p>
+          </div>
+
+          <div id="card-back" class="card-back">
+            <p class="answer-label">ANSWER</p>
+            <p class="answer-text"><%= isSentenceCard ? card.back : card.front %></p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          id="show-answer-btn"
+          class="show-answer-btn"
+          onclick="showAnswer()"
+        >
+          Show Answer
+        </button>
+
+        <div id="answer-buttons" class="answer-buttons sm2-buttons">
+          <button type="button" class="btn-quality btn-again" data-quality="0">
+            <span class="btn-label">Again</span>
+            <span class="btn-hint">Forgot</span>
+          </button>
+
+          <button type="button" class="btn-quality btn-hard" data-quality="3">
+            <span class="btn-label">Hard</span>
+            <span class="btn-hint">Difficult</span>
+          </button>
+
+          <button type="button" class="btn-quality btn-good" data-quality="4">
+            <span class="btn-label">Good</span>
+            <span class="btn-hint">Correct</span>
+          </button>
+
+          <button type="button" class="btn-quality btn-easy" data-quality="5">
+            <span class="btn-label">Easy</span>
+            <span class="btn-hint">Perfect</span>
+          </button>
+        </div>
+
+      <% } else { %>
+        <div class="empty-state">
+          <h2>All Done!</h2>
+          <p><%= message %></p>
+          <a href="/decks/<%= deck._id %>" class="btn btn-primary">Back to Deck</a>
+        </div>
+      <% } %>
+
+      <p style="margin-top: 2rem;">
+        <a href="/decks/<%= deck._id %>">&larr; Back to <%= deck.name %></a>
+      </p>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/cards.js"></script>
+</body>
+</html>

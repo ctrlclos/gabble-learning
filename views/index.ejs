@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <%- include('partials/head') %>
-  <title><%= title %> | Gabble Learning</title>
+  <title>Gabble Learning</title>
 </head>
 <body>
   <%- include('partials/navbar') %>
@@ -10,19 +10,40 @@
   <main class="container">
     <%- include('partials/flash') %>
 
-    <h1>Welcome to Gabble Learning</h1>
-    <p>Your personal vocabulary learning companion.</p>
+    <div class="hero">
+      <h1>Gabble Learning</h1>
+      <p class="hero-subtitle">Learn vocabulary with AI-powered flashcards</p>
 
-    <% if (isAuthenticated) { %>
-      <div class="home-actions">
-        <a href="/vocabularies" class="btn btn-primary">My Vocabulary</a>
+      <% if (isAuthenticated) { %>
+        <p class="language-info">
+          Learning <strong><%= currentUser.targetLanguage %></strong>
+        </p>
+        <div class="home-actions">
+          <a href="/cards/new" class="btn btn-primary">Add Words</a>
+          <a href="/cards" class="btn btn-secondary">My Cards</a>
+        </div>
+      <% } else { %>
+        <div class="home-actions">
+          <a href="/auth/register" class="btn btn-primary">Get Started</a>
+          <a href="/auth/login" class="btn btn-secondary">Login</a>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <h3>Enter Words</h3>
+        <p>Type any word you want to learn in your target language.</p>
       </div>
-    <% } else { %>
-      <div class="home-actions">
-        <a href="/auth/register" class="btn btn-primary">Get Started</a>
-        <a href="/auth/login" class="btn btn-secondary">Login</a>
+      <div class="feature">
+        <h3>AI Generates Cards</h3>
+        <p>Get instant translations and definitions, or create your own.</p>
       </div>
-    <% } %>
+      <div class="feature">
+        <h3>Smart Review</h3>
+        <p>Spaced repetition shows words right when you need to review them.</p>
+      </div>
+    </div>
   </main>
 
   <%- include('partials/footer') %>

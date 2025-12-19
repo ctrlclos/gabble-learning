@@ -1,0 +1,368 @@
+/*
+ * Flashcard Component Styles
+ * Impossibly Simple CSS - Typography and Space Only
+ */
+
+/* ==================== FLASHCARD LIST ==================== */
+
+.flashcard-list {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* ==================== FLASHCARD ITEM ==================== */
+
+.flashcard-item {
+  padding-bottom: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.flashcard-item:not(:last-child) {
+  /* Visual separator using space, not border */
+}
+
+.flashcard-item__front,
+.flashcard-item__back {
+  margin-bottom: var(--space-4);
+}
+
+.flashcard-item__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray);
+  margin-bottom: var(--space-1);
+}
+
+.flashcard-item__text {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.flashcard-item__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+}
+
+.flashcard-item__actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.inline-form {
+  display: inline;
+  margin: 0;
+}
+
+/* ==================== AI EXAMPLES SECTION ==================== */
+
+.flashcard-item__examples {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+}
+
+.examples-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.examples-content {
+  min-height: 2rem;
+}
+
+.examples-placeholder {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--gray-light);
+  font-style: italic;
+}
+
+.examples-empty {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.example-sentence {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.example-number {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--gray);
+}
+
+.example-text {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+/* Loading state */
+.examples-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+}
+
+.examples-loading p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+}
+
+.loading-spinner::after {
+  content: "...";
+  font-weight: var(--font-bold);
+}
+
+/* Error state */
+.example-error {
+  padding: var(--space-4) 0;
+}
+
+.example-error p {
+  margin: 0 0 var(--space-2) 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+}
+
+/* ==================== AI SETTINGS PANEL ==================== */
+
+.ai-settings-panel {
+  margin-bottom: var(--space-8);
+}
+
+.ai-settings-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray);
+  margin-bottom: var(--space-3);
+}
+
+.ai-settings-header.ai-unavailable {
+  color: var(--gray-light);
+}
+
+.ai-icon {
+  font-weight: var(--font-bold);
+}
+
+.ai-settings-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.setting-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.setting-group label {
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.setting-select {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  color: var(--black);
+  background: var(--white);
+  border: 1px solid var(--black);
+}
+
+/* ==================== SM-2 INFO ==================== */
+
+.sm2-info {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.interval-badge,
+.ease-badge {
+  font-weight: var(--font-medium);
+}
+
+/* ==================== REVIEW PAGE ==================== */
+
+.review-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.progress-info {
+  color: var(--gray);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+}
+
+.card-front {
+  padding: var(--space-6) 0;
+}
+
+.card-front p {
+  font-size: var(--text-xl);
+  font-weight: var(--font-medium);
+  margin: 0;
+}
+
+.card-back {
+  display: none;
+  padding: var(--space-5) 0;
+  margin-top: var(--space-4);
+}
+
+.card-back.visible {
+  display: block;
+}
+
+.answer-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray);
+  margin-bottom: var(--space-2);
+}
+
+.answer-text {
+  font-size: var(--text-lg);
+  margin: 0;
+}
+
+.answer-buttons {
+  display: none;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.answer-buttons.visible {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ==================== SM-2 QUALITY BUTTONS ==================== */
+
+.sm2-buttons {
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.btn-quality {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  min-width: 80px;
+  font-family: inherit;
+  background: var(--white);
+  border: 1px solid var(--black);
+  cursor: pointer;
+}
+
+.btn-quality:hover {
+  background: var(--gray-placeholder);
+}
+
+.btn-quality:disabled {
+  color: var(--gray-light);
+  border-color: var(--gray-light);
+  cursor: not-allowed;
+}
+
+.btn-quality .btn-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+}
+
+.btn-quality .btn-hint {
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-top: var(--space-1);
+}
+
+/* Quality variants - differentiated by weight only */
+.btn-again .btn-label { font-weight: var(--font-normal); }
+.btn-hard .btn-label { font-weight: var(--font-medium); }
+.btn-good .btn-label { font-weight: var(--font-bold); }
+.btn-easy .btn-label { font-weight: var(--font-bold); text-transform: uppercase; }
+
+/* Show Answer Button */
+.show-answer-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.show-answer-btn:hover {
+  background: var(--gray);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 600px) {
+  .flashcard-item__footer {
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: stretch;
+  }
+
+  .flashcard-item__actions {
+    justify-content: flex-end;
+  }
+
+  .ai-settings-content {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .sm2-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn-quality {
+    min-width: unset;
+    width: 100%;
+  }
+}

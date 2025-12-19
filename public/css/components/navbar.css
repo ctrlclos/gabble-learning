@@ -1,0 +1,124 @@
+/*
+ * Navbar Component Styles
+ * Impossibly Simple CSS - Typography and Space Only
+ */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Brand/Logo */
+.nav-brand {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-brand:hover {
+  text-decoration: underline;
+}
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation link items */
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.nav-links a:hover {
+  color: var(--black);
+}
+
+/* Active page indicator */
+.nav-links a[aria-current="page"] {
+  color: var(--black);
+  font-weight: var(--font-bold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* User info in navbar */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+/* Badge for admin/roles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-admin {
+  /* Differentiated by bold weight only */
+}
+
+/* Form in navbar (logout button) */
+.nav-form {
+  margin: 0;
+}
+
+/* User section grouping */
+.nav-user-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Logout button */
+.btn-logout {
+  background: none;
+  border: 1px solid var(--black);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--black);
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  .nav-user-section {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

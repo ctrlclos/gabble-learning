@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/cards/<%= card._id %>?_method=PUT" method="POST" class="card-form">
+
+      <div class="form-group">
+        <label for="front">Front *</label>
+        <small class="text-muted">The question, word, or prompt</small>
+        <textarea
+          id="front"
+          name="front"
+          placeholder="e.g., What is photosynthesis?"
+          required
+          rows="3"
+        ><%= oldInput.front || '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="back">Back *</label>
+        <small class="text-muted">The answer or definition</small>
+        <textarea
+          id="back"
+          name="back"
+          placeholder="e.g., The process by which plants convert sunlight into energy"
+          required
+          rows="3"
+        ><%= oldInput.back || '' %></textarea>
+      </div>
+
+      <% if (decks && decks.length > 0) { %>
+        <div class="form-group">
+          <label for="deck">Deck (Optional)</label>
+          <select id="deck" name="deck" class="form-select">
+            <option value="">No deck</option>
+            <% decks.forEach(d => { %>
+              <option value="<%= d._id %>" <%= oldInput.deck == d._id.toString() ? 'selected' : '' %>>
+                <%= d.name %><%= d.isDefault ? ' (Default)' : '' %>
+              </option>
+            <% }); %>
+          </select>
+        </div>
+      <% } %>
+
+      <div class="form-group">
+        <label for="tags">Tags (Optional)</label>
+        <input
+          type="text"
+          id="tags"
+          name="tags"
+          value="<%= oldInput.tags || '' %>"
+          placeholder="e.g., biology, chapter-1, exam"
+        >
+        <small class="text-muted">Separate tags with commas</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Update Card</button>
+        <a href="/cards/<%= card._id %>" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

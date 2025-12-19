@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+  <title><%= title %> | Gabble Learning</title>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <%- include('../partials/flash') %>
+
+    <h1><%= title %></h1>
+
+    <% if (errors && errors.length > 0) { %>
+      <div class="alert alert-error">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+
+    <section class="profile-section">
+      <h2>Profile Information</h2>
+      <form action="/profile?_method=PUT" method="POST" class="profile-form">
+
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= oldInput.name || '' %>"
+            required
+            minlength="2"
+            placeholder="Your name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="<%= oldInput.email || '' %>"
+            required
+            placeholder="you@example.com"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="nativeLanguage">Native Language</label>
+          <input
+            type="text"
+            id="nativeLanguage"
+            name="nativeLanguage"
+            value="<%= oldInput.nativeLanguage || '' %>"
+            required
+            placeholder="e.g., English"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="targetLanguage">Language You're Learning</label>
+          <input
+            type="text"
+            id="targetLanguage"
+            name="targetLanguage"
+            value="<%= oldInput.targetLanguage || '' %>"
+            required
+            placeholder="e.g., Japanese"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="interests">Your Interests</label>
+          <textarea
+            id="interests"
+            name="interests"
+            rows="3"
+            placeholder="e.g., Shrek, cooking, football, Harry Potter..."
+          ><%= oldInput.interests || '' %></textarea>
+          <small class="form-hint">AI will use these to create personalized example sentences</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="/cards" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="profile-section">
+      <h2>Change Password</h2>
+      <form action="/profile/password?_method=PUT" method="POST" class="profile-form">
+
+        <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input
+            type="password"
+            id="currentPassword"
+            name="currentPassword"
+            required
+            placeholder="Enter current password"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            required
+            minlength="8"
+            placeholder="At least 8 characters"
+          >
+          <small class="form-hint">Must include uppercase, lowercase, and a number</small>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmNewPassword">Confirm New Password</label>
+          <input
+            type="password"
+            id="confirmNewPassword"
+            name="confirmNewPassword"
+            required
+            placeholder="Type new password again"
+          >
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Update Password</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

@@ -19,7 +19,11 @@
     "url": "https://github.com/ctrlclos/gabble-learning/issues"
   },
   "homepage": "https://github.com/ctrlclos/gabble-learning#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
+    "@google/genai": "^1.0.0",
     "bcryptjs": "^3.0.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^6.0.0",

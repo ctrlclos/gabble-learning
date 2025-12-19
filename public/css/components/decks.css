@@ -1,0 +1,164 @@
+/*
+ * Deck Component Styles
+ * Impossibly Simple CSS - Typography and Space Only
+ */
+
+/* Deck Grid Layout */
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Deck Card */
+.deck-card {
+  padding-bottom: var(--space-5);
+}
+
+/* Deck Header */
+.deck-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.deck-header h2 {
+  font-size: var(--text-xl);
+  margin-bottom: 0;
+}
+
+.deck-header h2 a {
+  text-decoration: none;
+}
+
+.deck-header h2 a:hover {
+  text-decoration: underline;
+}
+
+/* Deck Title Section (on show page) */
+.deck-title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.deck-header-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Deck Description */
+.deck-description {
+  color: var(--gray);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.deck-description-detail {
+  color: var(--gray);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+}
+
+/* Deck Stats */
+.deck-stats {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.deck-stats .stat {
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.deck-stats .stat strong {
+  color: var(--black);
+}
+
+/* Deck Meta (on show page) */
+.deck-meta {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) 0;
+}
+
+.deck-meta span {
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.deck-meta span strong {
+  color: var(--black);
+}
+
+/* Deck Actions */
+.deck-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Danger Zone */
+.danger-zone {
+  padding: var(--space-5) 0;
+  margin-top: var(--space-6);
+}
+
+.danger-zone h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+
+.danger-zone p {
+  color: var(--gray);
+  margin-bottom: var(--space-4);
+}
+
+/* Color Input Styling */
+.color-input {
+  width: 60px;
+  height: 40px;
+  padding: var(--space-1);
+  border: 1px solid var(--black);
+  cursor: pointer;
+}
+
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+}
+
+/* Form Select */
+.form-select {
+  width: 100%;
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  font-family: inherit;
+  border: 1px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  cursor: pointer;
+}
+
+.form-select:focus {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
+}
+
+/* Horizontal Rule - using space instead */
+hr {
+  border: none;
+  margin: var(--space-6) 0;
+}

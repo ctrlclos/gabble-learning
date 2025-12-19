@@ -1,5 +1,4 @@
-<!--(Navigation links)-->
-<nav class="navbar">
+<nav class="navbar" aria-label="Main navigation">
   <a href="/" class="nav-brand">
     Gabble Learning
   </a>
@@ -7,35 +6,40 @@
   <ul class="nav-links">
     <% if(isAuthenticated) { %>
       <li>
-      <a href="/vocabularies">
-        My Vocabulary
-      </a>
-    </li>
-    <li>
-      <a href="/flashcards">My Flashcards</a>
-    </li>
-    <li>
-      <span class="nav-user">
-        Hello, <%= currentUser.name %>
-        <% if(currentUser.role === 'admin') { %>
-          <span class="badge badge-admin">
-            Admin
-          </span>
-        <% } %>
-      </span>
-    </li>
-    <li>
+        <a href="/cards"
+           <%= currentPath.startsWith('/cards') ? 'aria-current="page"' : '' %>>
+          My Cards
+        </a>
+      </li>
+      <li>
+        <a href="/decks"
+           <%= currentPath.startsWith('/decks') ? 'aria-current="page"' : '' %>>
+          My Decks
+        </a>
+      </li>
+      <li class="nav-user-section">
+        <a href="/profile" class="nav-user">
+          <%= currentUser.name %>
+          <% if(currentUser.role === 'admin') { %>
+            <span class="badge badge-admin">Admin</span>
+          <% } %>
+        </a>
         <form action="/auth/logout" method="POST" class="nav-form">
-          <button type="submit" class="btn-link">Logout</button>
+          <button type="submit" class="btn-logout">Logout</button>
         </form>
       </li>
-    <% } else {%>
+    <% } else { %>
       <li>
-        <a href="/auth/login">Login</a>
+        <a href="/auth/login"
+           <%= currentPath === '/auth/login' ? 'aria-current="page"' : '' %>>
+          Login
+        </a>
       </li>
-
       <li>
-        <a href="/auth/register">Register</a>
+        <a href="/auth/register"
+           <%= currentPath === '/auth/register' ? 'aria-current="page"' : '' %>>
+          Register
+        </a>
       </li>
     <% } %>
   </ul>

@@ -1,0 +1,487 @@
+/*
+ * Flashcards and Flashcard Types Component Styles
+ * Impossibly Simple CSS - Typography and Space Only
+ */
+
+/* Flashcard Type Grid */
+.flashcard-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+.flashcard-type-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.flashcard-type-section h2 {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+}
+
+/* Flashcard Type Card */
+.flashcard-type-card {
+  padding-bottom: var(--space-5);
+}
+
+.flashcard-type-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-type-header h3 {
+  font-size: var(--text-lg);
+  margin-bottom: 0;
+}
+
+.flashcard-type-header h3 a {
+  text-decoration: none;
+}
+
+.flashcard-type-header h3 a:hover {
+  text-decoration: underline;
+}
+
+.flashcard-type-title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.flashcard-type-description {
+  color: var(--gray);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-type-description-detail {
+  color: var(--gray);
+  margin-bottom: var(--space-5);
+}
+
+.flashcard-type-meta,
+.flashcard-type-stats {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-type-meta strong,
+.flashcard-type-stats strong {
+  color: var(--black);
+}
+
+.flashcard-type-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.flashcard-type-header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Flashcard Type Detail Sections */
+.flashcard-type-detail-section {
+  margin-bottom: var(--space-8);
+}
+
+.flashcard-type-detail-section h2 {
+  margin-bottom: var(--space-4);
+}
+
+.flashcard-type-detail-meta {
+  margin-bottom: var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+/* Fields List */
+.fields-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field-item {
+  padding: var(--space-3) 0;
+}
+
+.field-name {
+  font-weight: var(--font-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.field-description {
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-top: var(--space-1);
+}
+
+/* Templates List */
+.templates-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.template-item {
+  padding: var(--space-4) 0;
+}
+
+.template-item h3 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-3);
+}
+
+.template-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.template-side {
+  flex: 1;
+  min-width: 200px;
+}
+
+.template-side strong {
+  display: block;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+}
+
+.template-side code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  word-break: break-all;
+}
+
+.template-arrow {
+  color: var(--gray);
+  font-size: var(--text-xl);
+}
+
+/* Badges - typography differentiation only */
+.badge-builtin,
+.badge-custom,
+.badge-required,
+.badge-type,
+.badge-level,
+.badge-interval {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-required {
+  font-style: italic;
+}
+
+/* Flashcard Type Selection Grid */
+.flashcard-type-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.flashcard-type-selection-card {
+  display: block;
+  padding: var(--space-5) 0;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.flashcard-type-selection-card:hover {
+  text-decoration: underline;
+}
+
+.flashcard-type-selection-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.flashcard-type-selection-header h2 {
+  font-size: var(--text-lg);
+  margin-bottom: 0;
+}
+
+.flashcard-type-selection-description {
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-type-selection-info {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-bottom: var(--space-2);
+}
+
+.flashcard-type-selection-fields {
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+/* Flashcards List */
+.flashcards-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.flashcard-card {
+  padding-bottom: var(--space-5);
+}
+
+.flashcard-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-header h2 {
+  font-size: var(--text-lg);
+  margin-bottom: 0;
+}
+
+.flashcard-header h2 a {
+  text-decoration: none;
+}
+
+.flashcard-header h2 a:hover {
+  text-decoration: underline;
+}
+
+.flashcard-meta {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-bottom: var(--space-3);
+}
+
+.flashcard-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.field-preview {
+  font-size: var(--text-sm);
+  color: var(--gray);
+}
+
+.flashcard-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.flashcard-header-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Flashcard Detail */
+.flashcard-detail-meta {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.flashcard-detail-section {
+  margin-bottom: var(--space-8);
+}
+
+.flashcard-detail-section h2 {
+  margin-bottom: var(--space-4);
+}
+
+.tag {
+  display: inline-block;
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-right: var(--space-2);
+}
+
+.tag::before {
+  content: "#";
+}
+
+/* Field Values List */
+.field-values-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field-value-item {
+  padding: var(--space-3) 0;
+}
+
+.field-value-name {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--gray);
+  margin-bottom: var(--space-1);
+}
+
+.field-value-content {
+  white-space: pre-wrap;
+}
+
+/* Generated Cards List */
+.generated-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.generated-card {
+  padding: var(--space-4) 0;
+}
+
+.generated-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.generated-card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.generated-card-side {
+  flex: 1;
+  min-width: 200px;
+}
+
+.side-label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+}
+
+.side-content {
+  white-space: pre-wrap;
+}
+
+.generated-card-arrow {
+  color: var(--gray);
+  font-size: var(--text-xl);
+  padding-top: var(--space-4);
+}
+
+.generated-card-meta {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--gray);
+  display: flex;
+  gap: var(--space-4);
+}
+
+/* Form Rows */
+.field-row,
+.template-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto auto;
+  gap: var(--space-3);
+  align-items: end;
+  padding: var(--space-4) 0;
+  margin-bottom: var(--space-3);
+}
+
+.template-row {
+  grid-template-columns: 1fr;
+}
+
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.form-group-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+/* Card Preview */
+.card-preview {
+  padding: var(--space-4) 0;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.card-preview h3 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-3);
+}
+
+.card-preview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-preview li {
+  padding: var(--space-2) 0;
+}
+
+.card-preview code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .template-preview {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .template-arrow {
+    text-align: center;
+  }
+
+  .generated-card-content {
+    flex-direction: column;
+  }
+
+  .generated-card-arrow {
+    text-align: center;
+    padding: var(--space-2) 0;
+  }
+}
