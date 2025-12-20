@@ -2,12 +2,16 @@
 import express from 'express';
 import { getWordInfo, getStatus } from '../controllers/aiController.js';
 import { isAuthenticated } from '../middleware/auth.js';
+import { aiRateLimiter, aiRateLimitStatus } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
 router.use(isAuthenticated);
 
-router.get('/status', getStatus);
-router.post('/word-info', getWordInfo);
+// Status endpoint includes rate limit info but doesn't count against quota
+router.get('/status', aiRateLimitStatus, getStatus);
+
+// Word info endpoint is rate limited
+router.post('/word-info', aiRateLimiter, getWordInfo);
 
 export default router;

@@ -40,7 +40,7 @@ export async function getWordInfo(req, res) {
   }
 }
 
-// GET /api/ai/status - Check if AI service is available
+// GET /api/ai/status - Check if AI service is available and rate limit status
 export async function getStatus(req, res) {
   try {
     const isAvailable = await checkApiAvailability();
@@ -51,6 +51,7 @@ export async function getStatus(req, res) {
       message: isAvailable
         ? 'AI service is available'
         : 'AI service is not configured or unavailable',
+      rateLimit: req.rateLimitStatus || null,
     });
 
   } catch (error) {
@@ -59,6 +60,7 @@ export async function getStatus(req, res) {
       success: true,
       available: false,
       message: 'AI service check failed',
+      rateLimit: req.rateLimitStatus || null,
     });
   }
 }
