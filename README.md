@@ -1,7 +1,7 @@
 # Gabble Learning
 
 A vocabulary learning web app that uses AI and spaced repetition to help you master new languages efficiently.
-
+[Deployed Link](https://gabble-learning-e3481966cbb3.herokuapp.com/)
 ## Features
 
 - **Smart Review System** — Uses the SM-2 algorithm to schedule reviews at optimal intervals, so you study words right before you forget them
